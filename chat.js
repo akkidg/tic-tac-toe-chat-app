@@ -1,4 +1,4 @@
-var socket = io('http://test-ag-chat-app.herokuapp.com/');
+var socket = io('http://tic-tac-toe-chat-app.herokuapp.com/');
 
 function submitfunction(){
 	var user = $('#userName').val();
