@@ -152,7 +152,8 @@ io.on('connection',function(socket){
 				}						
 			}			
 		}
-			room.stopRound(socket);
+		isGameStart = false;
+		room.stopRound(socket);
 	});
 
 	socket.on('turnComplete',function(groupName,position){
