@@ -234,8 +234,8 @@ Room.prototype.addPlayer = function(player){
 
 Room.prototype.startGame = function(socket){
 
-	for(var i=0;i<this.players.length;i++){		
-		title = 'Round Started';
+	for(var i=0;i<this.players.length;i++){	
+		title = 'Round Started';	
 		alert = {'status':12,'isPlayStart':true,'mySign':i};
 		dataJson = {'title':title,'alert':alert};
 		this.players[i].mySign = i;
