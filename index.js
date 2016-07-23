@@ -105,15 +105,13 @@ io.on('connection',function(socket){
 	// Events For Group Subscription
 
 	socket.on('startGame',function(groupName){
-		if(!isGameStart){
-			if(rooms[groupName] != null){
-				var room = rooms[groupName];
-				if(room.players.length == room.maxPlayer){
-					isGameStart = true;
-					room.startGame(socket);		
-				}
+		if(rooms[groupName] != null){
+			var room = rooms[groupName];
+			if(room.players.length == room.maxPlayer){
+				isGameStart = true;
+				room.startGame(socket);		
 			}
-		}					
+		}			
 	});
 
 	socket.on('subscribe',function(groupName,totParticipant,from){
@@ -122,7 +120,7 @@ io.on('connection',function(socket){
 
 		if(rooms[groupName] == null){
 			var room = new Room(groupName,totParticipant);
-			var player = new Player(userSocketIds[from],socket.username,true);
+			var player = new Player(userSocketIds[from],socket.username,true,0);
 			room.addPlayer(player);
 			rooms[groupName] = room;
 		}else{
@@ -134,7 +132,7 @@ io.on('connection',function(socket){
 				}
 			}
 			if(!isPlayerPresent){
-				var player = new Player(userSocketIds[from],socket.username,false);
+				var player = new Player(userSocketIds[from],socket.username,false,0);
 				room.addPlayer(player);			
 			}
 	
