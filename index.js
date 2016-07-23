@@ -106,9 +106,12 @@ io.on('connection',function(socket){
 
 	socket.on('startGame',function(groupName){
 		if(!isGameStart){
-			isGameStart = true;
-			if(room.players.length == room.maxPlayer){
-				room.startGame(socket);		
+			if(rooms[groupName] != null){
+				var room = rooms[groupName];
+				if(room.players.length == room.maxPlayer){
+					isGameStart = true;
+					room.startGame(socket);		
+				}
 			}
 		}					
 	});
