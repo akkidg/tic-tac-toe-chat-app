@@ -13,6 +13,15 @@ var userSocketIds = {};
 // Storing Rooms in Global Array
 var rooms = {};
 
+// Game Entities
+var isGameStart = false;
+var answersArray = ["012","345","678","036","147","258","048","246"];
+
+var finalMovesArray = [];
+var player1Moves = []; 
+var player2Moves = [];
+var maxRoundMoves = 8;
+
 app.get('/',function(req,res){
 	var express = require('express');
 	app.use(express.static(path.join(__dirname)));	
@@ -95,6 +104,15 @@ io.on('connection',function(socket){
 				
 	// Events For Group Subscription
 
+	socket.on('startGame',function(groupName){
+		if(!isGameStart){
+			isGameStart = true;
+			if(room.players.length == room.maxPlayer){
+				room.startGame(socket);		
+			}
+		}					
+	});
+
 	socket.on('subscribe',function(groupName,totParticipant,from){
 		// room created by group name
 		socket.join(groupName);
@@ -116,10 +134,7 @@ io.on('connection',function(socket){
 				var player = new Player(userSocketIds[from],socket.username,false);
 				room.addPlayer(player);			
 			}
-
-			if(room.players.length == room.maxPlayer){
-				room.startGame(socket);		
-			}		
+	
 		}
 	});
 
@@ -202,12 +217,18 @@ Room.prototype.addPlayer = function(player){
 };
 
 Room.prototype.startGame = function(socket){
-	title = 'Round Started';
-	alert = {'status':12,'isPlayStart':true};
-	dataJson = {'title':title,'alert':alert};
+
+	for(var i=0;i<this.players.length;i++){		
+		title = 'Round Started';
+		alert = {'status':12,'isPlayStart':true,'mySign':i};
+		dataJson = {'title':title,'alert':alert};
+		io.to(this.players[i].id).emit('gameStart',dataJson);			
+	}
+
+	//int random  = Math.floor(Math.random()*1);
 
 	//socket.broadcast.to(this.room_name).emit('RoundStart',dataJson);
-	io.to(this.room_name).emit('gameStart',dataJson);
+	//io.to(this.room_name).emit('gameStart',dataJson);
 
 	for(var i=0;i<this.players.length;i++){
 		if(this.players[i].isTurn){			
