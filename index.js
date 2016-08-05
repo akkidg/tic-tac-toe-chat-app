@@ -110,7 +110,17 @@ io.on('connection',function(socket){
 			if(room.players.length == room.maxPlayer){
 				isGameStart = true;
 				room.startGame(socket);		
+			}else{
+				title = 'Round Finished';
+				alert = {'status':17,'errorEvent':'paticipant not equal'};
+				dataJson = {'title':title,'alert':alert};
+				io.to(groupName).emit('errorEvent',dataJson);
 			}
+		}else{
+			title = 'Round Finished';
+			alert = {'status':17,'errorEvent':'room object not found'};
+			dataJson = {'title':title,'alert':alert};
+			io.to(groupName).emit('errorEvent',dataJson);
 		}			
 	});
 
@@ -136,7 +146,7 @@ io.on('connection',function(socket){
 				room.addPlayer(player);			
 			}
 			if(room.players.length == totParticipant){
-				
+
 			}
 	
 		}
