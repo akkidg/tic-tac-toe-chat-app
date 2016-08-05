@@ -135,6 +135,9 @@ io.on('connection',function(socket){
 				var player = new Player(userSocketIds[from],socket.username,false,0);
 				room.addPlayer(player);			
 			}
+			if(room.players.length == totParticipant){
+				
+			}
 	
 		}
 	});
