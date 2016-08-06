@@ -145,7 +145,7 @@ io.on('connection',function(socket){
 				var player = new Player(userSocketIds[from],socket.username,false,0);
 				room.addPlayer(player);			
 			}
-			title = 'Round Finished';
+			title = 'Round player status';
 			alert = {'status':17,'errorEvent':'room player status','stat':isPlayerPresent};
 			dataJson = {'title':title,'alert':alert};
 			io.to(groupName).emit('errorEvent',dataJson);		
