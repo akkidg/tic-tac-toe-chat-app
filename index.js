@@ -151,7 +151,7 @@ io.on('connection',function(socket){
 			io.to(groupName).emit('errorEvent',dataJson);		
 		}
 			title = 'Round count status';
-			alert = {'status':17,'countEvent':'room player count','count':room.players.length};
+			alert = {'status':17,'countEvent':'room player count','count':room.players.length,'totParticipant':room.maxPlayer};
 			dataJson = {'title':title,'alert':alert};
 			io.to(groupName).emit('errorEvent',dataJson);
 	});
