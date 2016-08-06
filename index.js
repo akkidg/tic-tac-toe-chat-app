@@ -125,8 +125,8 @@ io.on('connection',function(socket){
 	});
 
 	socket.on('subscribe',function(groupName,totParticipant,from){
-		// room created by group name		socket.join(groupName);
-
+		// room created by group name		
+		socket.join(groupName);
 		if(rooms[groupName] == null){
 			var room = new Room(groupName,totParticipant);
 			var player = new Player(userSocketIds[from],socket.username,true,0);
