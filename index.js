@@ -150,8 +150,8 @@ io.on('connection',function(socket){
 			dataJson = {'title':title,'alert':alert};
 			io.to(groupName).emit('errorEvent',dataJson);		
 		}
-			title = 'Round Finished';
-			alert = {'status':17,'errorEvent':'room player count','count':room.players.length};
+			title = 'Round count status';
+			alert = {'status':17,'countEvent':'room player count','count':room.players.length};
 			dataJson = {'title':title,'alert':alert};
 			io.to(groupName).emit('errorEvent',dataJson);
 	});
