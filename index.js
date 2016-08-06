@@ -112,7 +112,7 @@ io.on('connection',function(socket){
 				room.startGame(socket);		
 			}else{
 				title = 'Round Finished';
-				alert = {'status':17,'errorEvent':'paticipant not equal'};
+				alert = {'status':17,'errorEvent':'paticipant not equal','size':room.players.length};
 				dataJson = {'title':title,'alert':alert};
 				io.to(groupName).emit('errorEvent',dataJson);
 			}
