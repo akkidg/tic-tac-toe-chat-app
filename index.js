@@ -145,7 +145,7 @@ io.on('connection',function(socket){
 				room.addPlayer(player);			
 			}
 			title = 'Round Finished';
-			alert = {'status':17,'errorEvent':'room player status','status':isPlayerPresent};
+			alert = {'status':17,'errorEvent':'room player status','stat':isPlayerPresent};
 			dataJson = {'title':title,'alert':alert};
 			io.to(groupName).emit('errorEvent',dataJson);
 			if(room.players.length == totParticipant){
