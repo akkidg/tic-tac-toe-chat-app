@@ -167,6 +167,10 @@ io.on('connection',function(socket){
 				}						
 			}			
 		}
+			title = 'Round count status';
+			alert = {'status':17,'countEvent':'room player count','count':room.players.length,'totParticipant':room.maxPlayer};
+			dataJson = {'title':title,'alert':alert};
+			io.to(groupName).emit('errorEvent',dataJson);
 		isGameStart = false;
 		room.stopRound(socket);
 	});
