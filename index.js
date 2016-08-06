@@ -181,7 +181,7 @@ io.on('connection',function(socket){
 				title = 'Turn System';
 				alert = {'status':13,'isMyTurn':false,'position':position,'mySign':mySign};
 				dataJson = {'title':title,'alert':alert};
-				socket.broadcast.to(this.room_name).emit('turn',dataJson);
+				socket.broadcast.to(groupName).emit('turn',dataJson);
 			}
 
 			var room = rooms[groupName];
