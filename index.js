@@ -125,15 +125,16 @@ io.on('connection',function(socket){
 	});
 
 	socket.on('subscribe',function(groupName,totParticipant,from){
-		// room created by group name		
+		// room created by group name	
+		var room;	
 		socket.join(groupName);
 		if(rooms[groupName] == null){
-			var room = new Room(groupName,totParticipant);
+			room = new Room(groupName,totParticipant);
 			var player = new Player(userSocketIds[from],socket.username,true,0);
 			room.addPlayer(player);
 			rooms[groupName] = room;
 		}else{
-			var room = rooms[groupName];
+			room = rooms[groupName];
 			var isPlayerPresent = false;
 			for(var player in room.players){
 				if(player.id == userSocketIds[from]){
@@ -147,12 +148,12 @@ io.on('connection',function(socket){
 			title = 'Round Finished';
 			alert = {'status':17,'errorEvent':'room player status','stat':isPlayerPresent};
 			dataJson = {'title':title,'alert':alert};
-			io.to(groupName).emit('errorEvent',dataJson);
-			if(room.players.length == totParticipant){
-
-			}
-
+			io.to(groupName).emit('errorEvent',dataJson);		
 		}
+			title = 'Round Finished';
+			alert = {'status':17,'errorEvent':'room player count','count':room.players.length};
+			dataJson = {'title':title,'alert':alert};
+			io.to(groupName).emit('errorEvent',dataJson);
 	});
 
 	socket.on('unSubscribe',function(groupName,from){
