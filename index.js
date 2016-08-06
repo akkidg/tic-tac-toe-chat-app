@@ -167,8 +167,8 @@ io.on('connection',function(socket){
 				}						
 			}			
 		}
-			title = 'Round count status';
-			alert = {'status':17,'countEvent':'room player count','count':room.players.length,'totParticipant':room.maxPlayer};
+			title = 'room left';
+			alert = {'status':17,'countEvent':'room player left','count':room.players.length};
 			dataJson = {'title':title,'alert':alert};
 			io.to(groupName).emit('errorEvent',dataJson);
 		isGameStart = false;
