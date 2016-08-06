@@ -178,6 +178,10 @@ io.on('connection',function(socket){
 				io.to(groupName).emit('roundFinish',dataJson);		
 			}else{				
 				finalMovesArray.push(position);
+				title = 'Turn System';
+				alert = {'status':13,'isMyTurn':false,'position':position,'mySign':mySign};
+				dataJson = {'title':title,'alert':alert};
+				socket.broadcast.to(this.room_name).emit('turn',dataJson);
 			}
 
 			var room = rooms[groupName];
@@ -191,11 +195,11 @@ io.on('connection',function(socket){
 					}else{
 						player = room.players[i+1];	
 						player.isTurn = true;
-					}
-					break;
+					}/*
+					break;*/
 				} 				
 			}
-			room.progressRound(socket,position,player.mySign);	
+			room.progressRound(socket);	
 		}
 	});
 
@@ -266,12 +270,8 @@ Room.prototype.startGame = function(socket){
 	}
 };
 
-Room.prototype.progressRound = function(socket,position,mySign){
-	title = 'Turn System';
-	alert = {'status':13,'isMyTurn':false,'position':position,'mySign':mySign};
-	dataJson = {'title':title,'alert':alert};
-	socket.broadcast.to(this.room_name).emit('turn',dataJson);
-
+Room.prototype.progressRound = function(socket){
+	
 	for(var i=0;i<this.players.length;i++){
 		if(this.players[i].isTurn){
 			title = 'Turn System';
