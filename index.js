@@ -176,11 +176,11 @@ io.on('connection',function(socket){
 		if(rooms[groupName] != null){
 
 			if(finalMovesArray.length == 8){
-				title = 'Round Finished';
+				/*title = 'Round Finished';
 				alert = {'status':15,'isRoundFinish':true};
 				dataJson = {'title':title,'alert':alert};
 				finalMovesArray = [];
-				io.to(groupName).emit('roundFinish',dataJson);		
+				io.to(groupName).emit('roundFinish',dataJson);*/		
 			}else{				
 				finalMovesArray.push(position);
 				title = 'Turn System';
