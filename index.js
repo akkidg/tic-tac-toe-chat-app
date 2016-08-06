@@ -125,8 +125,7 @@ io.on('connection',function(socket){
 	});
 
 	socket.on('subscribe',function(groupName,totParticipant,from){
-		// room created by group name
-		socket.join(groupName);
+		// room created by group name		socket.join(groupName);
 
 		if(rooms[groupName] == null){
 			var room = new Room(groupName,totParticipant);
@@ -148,7 +147,7 @@ io.on('connection',function(socket){
 			if(room.players.length == totParticipant){
 
 			}
-	
+
 		}
 	});
 
@@ -157,7 +156,7 @@ io.on('connection',function(socket){
 		if(rooms[groupName] != null){
 			var room = rooms[groupName];
 			for(var i=0;i<room.players.length;i++){
-				player = room.players[i];	
+				var player = room.players[i];	
 				if(player.id == userSocketIds[from]){
 					room.players.splice(i,1);
 				}						
@@ -168,7 +167,7 @@ io.on('connection',function(socket){
 	});
 
 	socket.on('turnComplete',function(groupName,position){
-		var player;
+		
 		if(rooms[groupName] != null){
 
 			if(finalMovesArray.length == 8){
@@ -183,14 +182,14 @@ io.on('connection',function(socket){
 
 			var room = rooms[groupName];
 			for(var i=0;i<room.players.length;i++){
-				player = room.players[i];
+				var player = room.players[i];
 				if(player.isTurn){
 					player.isTurn = false;
 					if(i == room.players.length - 1){
 						player = room.players[0];	
 						player.isTurn = true;
 					}else{
-						player = room.players[++i];	
+						player = room.players[i+1];	
 						player.isTurn = true;
 					}
 					break;
