@@ -170,7 +170,7 @@ io.on('connection',function(socket){
 			if(room.players.length == 0){
 				delete rooms[groupName];
 			}
-			//room.players = [];			
+			room.players = [];			
 		}
 			title = 'room left';
 			alert = {'status':17,'countEvent':'room player left','count':room.players.length};
