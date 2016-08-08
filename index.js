@@ -162,11 +162,11 @@ io.on('connection',function(socket){
 			var room = rooms[groupName];
 			for(var i=0;i<room.players.length;i++){
 				var player = room.players[i];	
-				if(player.id == userSocketIds[from]){
+				if(player.id == from]){
 					room.players.splice(i,1);
 				}						
 			}
-			//room.players = [];			
+			room.players = [];			
 		}
 			title = 'room left';
 			alert = {'status':17,'countEvent':'room player left','count':room.players.length};
