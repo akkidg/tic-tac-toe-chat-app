@@ -105,6 +105,7 @@ io.on('connection',function(socket){
 	// Events For Group Subscription
 
 	socket.on('startGame',function(groupName){
+		finalMovesArray = [];
 		if(rooms[groupName] != null){
 			var room = rooms[groupName];
 			if(room.players.length == room.maxPlayer){
@@ -190,7 +191,7 @@ io.on('connection',function(socket){
 				finalMovesArray = [];
 				io.to(groupName).emit('roundFinish',dataJson);*/		
 			}else{				
-				finalMovesArray.push(position);
+				//finalMovesArray.push(position);
 				title = 'Turn System';
 				alert = {'status':13,'isMyTurn':false,'position':position,'mySign':mySign};
 				dataJson = {'title':title,'alert':alert};
