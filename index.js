@@ -40,7 +40,7 @@ io.on('connection',function(socket){
 		if(userSocketIds[id] == null){
 			userSocketIds[id] = socket.id;			
 			++numUsers;				
-			addedUser = true;			
+			//addedUser = true;			
 			socket.broadcast.emit('addUser',{username:socket.username,numUsers:numUsers});
 		}else{
 			userSocketIds[id] = socket.id;	
