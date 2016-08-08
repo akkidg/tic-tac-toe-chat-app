@@ -33,7 +33,7 @@ io.on('connection',function(socket){
 	var addedUser = false;	
 	
 	socket.on('addUser',function(username,id){
-		if(addedUser) return;
+		//if(addedUser) return;
 
 		socket.username = username;
 
@@ -177,7 +177,7 @@ io.on('connection',function(socket){
 			dataJson = {'title':title,'alert':alert};
 			io.to(groupName).emit('errorEvent',dataJson);
 			isGameStart = false;
-		room.stopRound(socket);
+			room.stopRound(socket);
 	});
 
 	socket.on('turnComplete',function(groupName,position,mySign){
