@@ -11,7 +11,7 @@ var dataJson, title, alert;
 var userSocketIds = {};
 
 // Storing Rooms in Global Array
-var rooms = {};
+var rooms = [];
 
 // Game Entities
 var isGameStart = false;
@@ -130,19 +130,19 @@ io.on('connection',function(socket){
 		socket.join(groupName);
 		if(rooms[groupName] == null){
 			room = new Room(groupName,totParticipant);
-			var player = new Player(userSocketIds[from],socket.username,true,0);
+			var player = new Player(from,socket.username,true,0);
 			room.addPlayer(player);
 			rooms[groupName] = room;
 		}else{
 			room = rooms[groupName];
 			var isPlayerPresent = false;
 			for(var player in room.players){
-				if(player.id == userSocketIds[from]){
+				if(player.id == from){
 					isPlayerPresent = true;
 				}
 			}
 			if(!isPlayerPresent){
-				var player = new Player(userSocketIds[from],socket.username,false,0);
+				var player = new Player(from,socket.username,false,0);
 				room.addPlayer(player);			
 			}
 			title = 'Round player status';
@@ -171,7 +171,7 @@ io.on('connection',function(socket){
 			alert = {'status':17,'countEvent':'room player left','count':room.players.length};
 			dataJson = {'title':title,'alert':alert};
 			io.to(groupName).emit('errorEvent',dataJson);
-		isGameStart = false;
+			isGameStart = false;
 		room.stopRound(socket);
 	});
 
@@ -262,7 +262,7 @@ Room.prototype.startGame = function(socket){
 		alert = {'status':12,'isPlayStart':true,'mySign':i};
 		dataJson = {'title':title,'alert':alert};
 		this.players[i].mySign = i;
-		io.to(this.players[i].id).emit('gameStart',dataJson);			
+		io.to(userSocketIds[this.players[i].id]).emit('gameStart',dataJson);			
 	}
 
 	//int random  = Math.floor(Math.random()*1);
@@ -274,7 +274,7 @@ Room.prototype.startGame = function(socket){
 		if(this.players[i].isTurn){			
 			alert = {'status':13,'isMyTurn':true};
 			dataJson = {'title':title,'alert':alert};
-			io.to(this.players[i].id).emit('turn',dataJson);	
+			io.to(userSocketIds[this.players[i].id]).emit('turn',dataJson);	
 		}		
 	}
 };
@@ -286,7 +286,7 @@ Room.prototype.progressRound = function(socket){
 			title = 'Turn System';
 			alert = {'status':13,'isMyTurn':true};
 			dataJson = {'title':title,'alert':alert};
-			io.to(this.players[i].id).emit('turn',dataJson);		
+			io.to(userSocketIds[this.players[i].id]).emit('turn',dataJson);		
 		}else{			
 			this.players[i].isTurn = false;
 		}		
