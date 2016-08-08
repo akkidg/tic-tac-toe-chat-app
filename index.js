@@ -166,6 +166,9 @@ io.on('connection',function(socket){
 					room.players.splice(i,1);
 				}						
 			}
+			if(room.players.length == 0){
+				delete rooms[groupName];
+			}
 			//room.players = [];			
 		}
 			title = 'room left';
