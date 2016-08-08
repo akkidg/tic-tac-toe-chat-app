@@ -176,7 +176,7 @@ io.on('connection',function(socket){
 		room.stopRound(socket);
 	});
 
-	socket.on('turnComplete',function(groupName,position){
+	socket.on('turnComplete',function(groupName,position,mySign){
 		
 		if(rooms[groupName] != null){
 
