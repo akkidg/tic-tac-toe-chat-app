@@ -204,13 +204,13 @@ io.on('connection',function(socket){
 				if(player.isTurn){
 					player.isTurn = false;
 					if(i == room.players.length - 1){
-						player = room.players[0];	
+						var player = room.players[0];	
 						player.isTurn = true;
 					}else{
-						player = room.players[i+1];	
+						var player = room.players[i+1];	
 						player.isTurn = true;
-					}/*
-					break;*/
+					}
+					break;
 				} 				
 			}
 			room.progressRound(socket);	
