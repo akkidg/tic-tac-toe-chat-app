@@ -185,17 +185,17 @@ io.on('connection',function(socket){
 		if(rooms[groupName] != null){
 
 			if(finalMovesArray.length == 8){
-				/*title = 'Round Finished';
+				title = 'Round Finished';
 				alert = {'status':15,'isRoundFinish':true};
 				dataJson = {'title':title,'alert':alert};
 				finalMovesArray = [];
-				io.to(groupName).emit('roundFinish',dataJson);*/		
+				socket.to(groupName).emit('roundFinish',dataJson);		
 			}else{				
-				//finalMovesArray.push(position);
+				finalMovesArray.push(position);
 				title = 'Turn System';
 				alert = {'status':13,'isMyTurn':false,'position':position,'mySign':mySign};
 				dataJson = {'title':title,'alert':alert};
-				socket.broadcast.to(groupName).emit('turn',dataJson);
+				socket.to(groupName).emit('turn',dataJson);
 			}
 
 			var room = rooms[groupName];
