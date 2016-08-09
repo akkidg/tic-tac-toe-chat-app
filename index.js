@@ -196,24 +196,25 @@ io.on('connection',function(socket){
 				alert = {'status':13,'isMyTurn':false,'position':position,'mySign':mySign,'finalMovesArraySize':finalMovesArray.length};
 				dataJson = {'title':title,'alert':alert};
 				socket.to(groupName).emit('turn',dataJson);
-			}
 
-			var room = rooms[groupName];
-			for(var i=0;i<room.players.length;i++){
-				var player = room.players[i];
-				if(player.isTurn){
-					player.isTurn = false;
-					if(i == room.players.length - 1){
-						var player = room.players[0];	
-						player.isTurn = true;
-					}else{
-						var player = room.players[i+1];	
-						player.isTurn = true;
-					}
-					break;
-				} 				
+				var room = rooms[groupName];
+				for(var i=0;i<room.players.length;i++){
+					var player = room.players[i];
+					if(player.isTurn){
+						player.isTurn = false;
+						if(i == room.players.length - 1){
+							var player = room.players[0];	
+							player.isTurn = true;
+						}else{
+							var player = room.players[i+1];	
+							player.isTurn = true;
+						}
+						break;
+					} 				
+				}
+				room.progressRound(socket);
 			}
-			room.progressRound(socket);	
+				
 		}
 	});
 
