@@ -291,10 +291,15 @@ Room.prototype.progressRound = function(socket){
 			title = 'Turn System';
 			alert = {'status':13,'isMyTurn':true};
 			dataJson = {'title':title,'alert':alert};
-			io.to(userSocketIds[this.players[i].id]).emit('turn',dataJson);		
+			//io.to(userSocketIds[this.players[i].id]).emit('turn',dataJson);		
 		}else{			
 			this.players[i].isTurn = false;
-		}		
+			title = 'Turn System';
+			alert = {'status':13,'isMyTurn':false};
+			dataJson = {'title':title,'alert':alert};
+		}
+				
+		io.to(userSocketIds[this.players[i].id]).emit('turn',dataJson);			
 	}
 };
 
