@@ -193,7 +193,7 @@ io.on('connection',function(socket){
 			}else{				
 				finalMovesArray.push(position);
 				title = 'Turn System';
-				alert = {'status':13,'isMyTurn':false,'position':position,'mySign':mySign};
+				alert = {'status':13,'isMyTurn':false,'position':position,'mySign':mySign,'finalMovesArraySize':finalMovesArray.length};
 				dataJson = {'title':title,'alert':alert};
 				socket.to(groupName).emit('turn',dataJson);
 			}
