@@ -186,11 +186,11 @@ io.on('connection',function(socket){
 
 			finalMovesArray.push(position);
 			if(finalMovesArray.length == 8){
+				finalMovesArray = [];
 				title = 'Round Finished';
 				alert = {'status':15,'isRoundFinish':true};
 				dataJson = {'title':title,'alert':alert};
-				finalMovesArray = [];
-				socket.to(groupName).emit('roundFinish',dataJson);		
+				io.to(groupName).emit('roundFinish',dataJson);		
 			}else{
 				title = 'Turn System';
 				alert = {'status':13,'isMyTurn':false,'position':position,'mySign':mySign,'finalMovesArraySize':finalMovesArray.length};
