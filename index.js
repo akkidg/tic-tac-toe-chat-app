@@ -186,7 +186,6 @@ io.on('connection',function(socket){
 	socket.on('turnComplete',function(groupName,position,mySign){
 
 		var isGameOver = false;
-		var gameResult;
 		
 		if(rooms[groupName] != null){
 
@@ -233,7 +232,7 @@ io.on('connection',function(socket){
 					}
 				}
 			}
-			
+
 			if(player2Moves.length > 2){
 				if(player2Moves.length == 3){
 					if(answersArray.indexOf(player2Moves.toString()) != -1 ){
