@@ -15,7 +15,7 @@ var rooms = [];
 
 // Game Entities
 var isGameStart = false;
-var answersArray = ["012","345","678","036","147","258","048","246"];
+var answersArray = ["0,1,2","3,4,5","6,7,8","0,3,6","1,4,7","2,5,8","0,4,8","2,4,6"];
 
 var finalMovesArray = [];
 var player1Moves = []; 
@@ -195,7 +195,7 @@ io.on('connection',function(socket){
 
 			// fill players moves in their containers 
 
-			/*if(mySign == 0){
+			if(mySign == 0){
 				player1Moves.push(position);
 				player1Moves.sort();
 			}else if(mySign == 1){
@@ -259,7 +259,7 @@ io.on('connection',function(socket){
 						socket.to(groupName).emit('roundFinish',dataJson);
 					}
 				}		
-			}*/
+			}
 
 			if(!isGameOver){
 
