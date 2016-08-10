@@ -106,6 +106,9 @@ io.on('connection',function(socket){
 
 	socket.on('startGame',function(groupName){
 		finalMovesArray = [];
+		player1Moves = [];
+		player2Moves = [];
+
 		if(rooms[groupName] != null){
 			var room = rooms[groupName];
 			if(room.players.length == room.maxPlayer){
@@ -230,6 +233,7 @@ io.on('connection',function(socket){
 					}
 				}
 			}
+			
 			if(player2Moves.length > 2){
 				if(player2Moves.length == 3){
 					if(answersArray.indexOf(player2Moves.toString()) != -1 ){
@@ -258,40 +262,40 @@ io.on('connection',function(socket){
 				}		
 			}
 
-		if(!isGameOver){
+			if(!isGameOver){
 
-			if(finalMovesArray.length == 8){
-				finalMovesArray = [];
-				player2Moves = [];
-				player1Moves = [];
-				title = 'Round Finished';
-				alert = {'status':15,'isRoundFinish':true,'roundResult':2};
-				dataJson = {'title':title,'alert':alert};
-				socket.to(groupName).emit('roundFinish',dataJson);		
-			}else{
-				title = 'Turn System';
-				alert = {'status':13,'isMyTurn':false,'position':position,'mySign':mySign,'finalMovesArraySize':finalMovesArray.length};
-				dataJson = {'title':title,'alert':alert};
-				socket.broadcast.to(groupName).emit('turn',dataJson);
+				if(finalMovesArray.length == 8){
+					finalMovesArray = [];
+					player2Moves = [];
+					player1Moves = [];
+					title = 'Round Finished';
+					alert = {'status':15,'isRoundFinish':true,'roundResult':2};
+					dataJson = {'title':title,'alert':alert};
+					socket.to(groupName).emit('roundFinish',dataJson);		
+				}else{
+					title = 'Turn System';
+					alert = {'status':13,'isMyTurn':false,'position':position,'mySign':mySign,'finalMovesArraySize':finalMovesArray.length};
+					dataJson = {'title':title,'alert':alert};
+					socket.broadcast.to(groupName).emit('turn',dataJson);
 
-				var room = rooms[groupName];
-				for(var i=0;i<room.players.length;i++){
-					var player = room.players[i];
-					if(player.isTurn){
-						player.isTurn = false;
-						if(i == room.players.length - 1){
-							var player = room.players[0];	
-							player.isTurn = true;
-						}else{
-							var player = room.players[i+1];	
-							player.isTurn = true;
-						}
-						break;
-					} 				
+					var room = rooms[groupName];
+					for(var i=0;i<room.players.length;i++){
+						var player = room.players[i];
+						if(player.isTurn){
+							player.isTurn = false;
+							if(i == room.players.length - 1){
+								var player = room.players[0];	
+								player.isTurn = true;
+							}else{
+								var player = room.players[i+1];	
+								player.isTurn = true;
+							}
+							break;
+						} 				
+					}
+					room.progressRound(socket);
 				}
-				room.progressRound(socket);
 			}
-		}
 				
 		}
 	});
