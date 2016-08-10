@@ -195,7 +195,7 @@ io.on('connection',function(socket){
 
 			// fill players moves in their containers 
 
-			if(mySign == 0){
+			/*if(mySign == 0){
 				player1Moves.push(position);
 				player1Moves.sort();
 			}else if(mySign == 1){
@@ -259,7 +259,7 @@ io.on('connection',function(socket){
 						socket.to(groupName).emit('roundFinish',dataJson);
 					}
 				}		
-			}
+			}*/
 
 			if(!isGameOver){
 
