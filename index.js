@@ -195,7 +195,7 @@ io.on('connection',function(socket){
 				title = 'Turn System';
 				alert = {'status':13,'isMyTurn':false,'position':position,'mySign':mySign,'finalMovesArraySize':finalMovesArray.length};
 				dataJson = {'title':title,'alert':alert};
-				socket.to(groupName).emit('turn',dataJson);
+				socket.broadcast.to(groupName).emit('turn',dataJson);
 
 				var room = rooms[groupName];
 				for(var i=0;i<room.players.length;i++){
