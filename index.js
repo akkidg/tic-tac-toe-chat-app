@@ -215,7 +215,8 @@ io.on('connection',function(socket){
 						socket.to(groupName).emit('roundFinish',dataJson);			
 					}		
 				}else if(player1Moves.length == 4){
-					var ansBlock1Array = ansBlock2Array = player1Moves;
+					var ansBlock1Array = player1Moves;
+					var ansBlock2Array = player1Moves;
 					ansBlock1Array.splice(3,1);
 					ansBlock2Array.splice(0,1);
 
@@ -240,7 +241,8 @@ io.on('connection',function(socket){
 						socket.to(groupName).emit('roundFinish',dataJson);
 					}		
 				}else if(player2Moves.length == 4){
-					var ansBlock1Array = ansBlock2Array = player2Moves;
+					var ansBlock1Array = player2Moves;
+					var ansBlock2Array = player2Moves;
 					ansBlock1Array.splice(3,1);
 					ansBlock2Array.splice(0,1);
 
