@@ -214,7 +214,8 @@ io.on('connection',function(socket){
 						dataJson = {'title':title,'alert':alert};
 						io.to(groupName).emit('roundFinish',dataJson);			
 					}		
-				}else if(player1Moves.length == 4){
+				}
+				if(player1Moves.length == 4){
 					var ansBlock1Array = [];
 					ansBlock1Array = ansBlock1Array.concat(player1Moves);
 					var ansBlock2Array = [];
@@ -232,32 +233,36 @@ io.on('connection',function(socket){
 				}
 			}
 
-			if(player2Moves.length > 2){
-				if(player2Moves.length == 3){
-					if(answersArray.indexOf(player2Moves.toString()) != -1 ){
-						isGameOver = true;
+			if(!isGameOver){
+
+				if(player2Moves.length > 2){
+					if(player2Moves.length == 3){
+						if(answersArray.indexOf(player2Moves.toString()) != -1 ){
+							isGameOver = true;
+							title = 'Round Finished';
+							alert = {'status':15,'isRoundFinish':true,'roundResult':mySign};
+							dataJson = {'title':title,'alert':alert};
+							io.to(groupName).emit('roundFinish',dataJson);
+						}		
+					}
+					if(player2Moves.length == 4){
+						var ansBlock1Array = [];
+						ansBlock1Array = ansBlock1Array.concat(player2Moves);
+						var ansBlock2Array = [];
+						ansBlock2Array = ansBlock2Array.concat(player2Moves);
+						ansBlock1Array.splice(3,1);
+						ansBlock2Array.splice(0,1);
+
 						title = 'Round Finished';
 						alert = {'status':15,'isRoundFinish':true,'roundResult':mySign};
 						dataJson = {'title':title,'alert':alert};
-						io.to(groupName).emit('roundFinish',dataJson);
+
+						if((answersArray.indexOf(ansBlock2Array.toString()) != -1) || (answersArray.indexOf(ansBlock1Array.toString()) != -1)){
+							isGameOver = true;	
+							io.to(groupName).emit('roundFinish',dataJson);
+						}
 					}		
-				}else if(player2Moves.length == 4){
-					var ansBlock1Array = [];
-					ansBlock1Array = ansBlock1Array.concat(player1Moves);
-					var ansBlock2Array = [];
-					ansBlock2Array = ansBlock2Array.concat(player1Moves);
-					ansBlock1Array.splice(3,1);
-					ansBlock2Array.splice(0,1);
-
-					title = 'Round Finished';
-					alert = {'status':15,'isRoundFinish':true,'roundResult':mySign};
-					dataJson = {'title':title,'alert':alert};
-
-					if((answersArray.indexOf(ansBlock2Array.toString()) != -1) || (answersArray.indexOf(ansBlock1Array.toString()) != -1)){
-						isGameOver = true;	
-						io.to(groupName).emit('roundFinish',dataJson);
-					}
-				}		
+				}
 			}
 
 			if(!isGameOver){
