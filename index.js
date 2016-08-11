@@ -275,7 +275,7 @@ io.on('connection',function(socket){
 
 			if(!isGameOver){
 
-				if(finalMovesArray.length == 8){
+				if(finalMovesArray.length == 9){
 					finalMovesArray = [];
 					title = 'Round Finished';
 					alert = {'status':15,'isRoundFinish':true,'roundResult':2};
