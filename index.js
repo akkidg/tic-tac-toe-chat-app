@@ -15,7 +15,10 @@ var rooms = [];
 
 // Game Entities
 var isGameStart = false;
-var answersArray = ["0,1,2","3,4,5","6,7,8","0,3,6","1,4,7","2,5,8","0,4,8","2,4,6"];
+var answersArray = ["0,1,2","3,4,5",
+					"6,7,8","0,3,6",
+					"1,4,7","2,5,8",
+					"0,4,8","2,4,6"];
 
 var finalMovesArray = [];
 var player1Moves = []; 
@@ -206,69 +209,54 @@ io.on('connection',function(socket){
 			// Game Logic 
 
 			if(player1Moves.length > 2){
-				if(player1Moves.length == 3){
-					if(answersArray.indexOf(player1Moves.toString()) != -1 ){
-						isGameOver = true;
-						title = 'Round Finished';
-						alert = {'status':15,'isRoundFinish':true,'roundResult':mySign};
-						dataJson = {'title':title,'alert':alert};
-						io.to(groupName).emit('roundFinish',dataJson);			
-					}		
+				for(var i=0;i<player1Moves.length - 2;i++){
+					for(var j=i;j<player1Moves.length - 2;j++){
+						var subArray = [];
+						subArray.push(player1Moves[i]);
+						var cnt = 1;
+						while(subArray.length <= 2){
+							subArray.push(player1Moves[j+cnt]);
+							cnt++;
+						}
+						if(answersArray.indexOf(subArray.toString()) != -1){
+							isGameOver = true;
+							break;
+						}
+					}
+					if(isGameOver)
+					{ break; }
 				}
-				if(player1Moves.length == 4){
-					var ansBlock1Array = [];
-					ansBlock1Array = ansBlock1Array.concat(player1Moves);
-					var ansBlock2Array = [];
-					ansBlock2Array = ansBlock2Array.concat(player1Moves);
-					var ansBlock3Array = [];
-					ansBlock3Array = ansBlock3Array.concat(player1Moves);
-					ansBlock1Array.splice(3,1);
-					ansBlock2Array.splice(0,1);
-					ansBlock3Array.splice(1,1);
+				if(isGameOver){
 					title = 'Round Finished';
 					alert = {'status':15,'isRoundFinish':true,'roundResult':mySign};
 					dataJson = {'title':title,'alert':alert};
-
-					if((answersArray.indexOf(ansBlock2Array.toString()) != -1) || (answersArray.indexOf(ansBlock1Array.toString()) != -1)
-						|| (answersArray.indexOf(ansBlock3Array.toString()) != -1)){
-						isGameOver = true;	
-						io.to(groupName).emit('roundFinish',dataJson);
-					}
+					io.to(groupName).emit('roundFinish',dataJson);
 				}
 			}
 
 			if(!isGameOver){
-
 				if(player2Moves.length > 2){
-					if(player2Moves.length == 3){
-						if(answersArray.indexOf(player2Moves.toString()) != -1 ){
-							isGameOver = true;
-							title = 'Round Finished';
-							alert = {'status':15,'isRoundFinish':true,'roundResult':mySign};
-							dataJson = {'title':title,'alert':alert};
-							io.to(groupName).emit('roundFinish',dataJson);
-						}		
+					for(var i=0;i<player2Moves.length - 2;i++){
+						for(var j=i;j<player2Moves.length - 2;j++){
+							var subArray = [];
+							subArray.push(player2Moves[i]);
+							var cnt = 1;
+							while(subArray.length <= 2){
+								subArray.push(player2Moves[j+cnt]);
+								cnt++;
+							}
+							if(answersArray.indexOf(subArray.toString()) != -1){
+								isGameOver = true;	
+								break;
+							}
+						}
+						if(isGameOver){ break; }
 					}
-					if(player2Moves.length == 4){
-						var ansBlock1Array = [];
-						ansBlock1Array = ansBlock1Array.concat(player2Moves);
-						var ansBlock2Array = [];
-						ansBlock2Array = ansBlock2Array.concat(player2Moves);
-						var ansBlock3Array = [];
-						ansBlock3Array = ansBlock3Array.concat(player2Moves);
-						ansBlock1Array.splice(3,1);
-						ansBlock2Array.splice(0,1);
-						ansBlock3Array.splice(1,1);
-
+					if(isGameOver){
 						title = 'Round Finished';
 						alert = {'status':15,'isRoundFinish':true,'roundResult':mySign};
 						dataJson = {'title':title,'alert':alert};
-
-						if((answersArray.indexOf(ansBlock2Array.toString()) != -1) || (answersArray.indexOf(ansBlock1Array.toString()) != -1)
-							|| (answersArray.indexOf(ansBlock3Array.toString()) != -1)){
-							isGameOver = true;	
-							io.to(groupName).emit('roundFinish',dataJson);
-						}
+						io.to(groupName).emit('roundFinish',dataJson);
 					}		
 				}
 			}
