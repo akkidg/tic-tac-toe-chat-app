@@ -216,9 +216,9 @@ io.on('connection',function(socket){
 					}		
 				}else if(player1Moves.length == 4){
 					var ansBlock1Array = [];
-					ansBlock1Array.concat(player1Moves);
+					ansBlock1Array = ansBlock1Array.concat(player1Moves);
 					var ansBlock2Array = [];
-					ansBlock2Array.concat(player1Moves);
+					ansBlock2Array = ansBlock2Array.concat(player1Moves);
 					ansBlock1Array.splice(3,1);
 					ansBlock2Array.splice(0,1);
 					title = 'Round Finished';
@@ -243,9 +243,9 @@ io.on('connection',function(socket){
 					}		
 				}else if(player2Moves.length == 4){
 					var ansBlock1Array = [];
-					ansBlock1Array.concat(player1Moves);
+					ansBlock1Array = ansBlock1Array.concat(player1Moves);
 					var ansBlock2Array = [];
-					ansBlock2Array.concat(player1Moves);
+					ansBlock2Array = ansBlock2Array.concat(player1Moves);
 					ansBlock1Array.splice(3,1);
 					ansBlock2Array.splice(0,1);
 
