@@ -250,7 +250,7 @@ io.on('connection',function(socket){
 					alert = {'status':15,'isRoundFinish':true,'roundResult':mySign};
 					dataJson = {'title':title,'alert':alert};
 
-					if(answersArray.indexOf(ansBlock2Array.toString()) != -1 || answersArray.indexOf(ansBlock1Array.toString()) != -1){
+					if((answersArray.indexOf(ansBlock2Array.toString()) != -1) || (answersArray.indexOf(ansBlock1Array.toString()) != -1)){
 						isGameOver = true;	
 						socket.to(groupName).emit('roundFinish',dataJson);
 					}
