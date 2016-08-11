@@ -212,7 +212,7 @@ io.on('connection',function(socket){
 						title = 'Round Finished';
 						alert = {'status':15,'isRoundFinish':true,'roundResult':mySign};
 						dataJson = {'title':title,'alert':alert};
-						socket.to(groupName).emit('roundFinish',dataJson);			
+						io.to(groupName).emit('roundFinish',dataJson);			
 					}		
 				}else if(player1Moves.length == 4){
 					var ansBlock1Array = player1Moves;
@@ -226,7 +226,7 @@ io.on('connection',function(socket){
 
 					if((answersArray.indexOf(ansBlock2Array.toString()) != -1) || (answersArray.indexOf(ansBlock1Array.toString()) != -1)){
 						isGameOver = true;	
-						socket.to(groupName).emit('roundFinish',dataJson);
+						io.to(groupName).emit('roundFinish',dataJson);
 					}
 				}
 			}
@@ -238,7 +238,7 @@ io.on('connection',function(socket){
 						title = 'Round Finished';
 						alert = {'status':15,'isRoundFinish':true,'roundResult':mySign};
 						dataJson = {'title':title,'alert':alert};
-						socket.to(groupName).emit('roundFinish',dataJson);
+						io.to(groupName).emit('roundFinish',dataJson);
 					}		
 				}else if(player2Moves.length == 4){
 					var ansBlock1Array = player2Moves;
@@ -252,7 +252,7 @@ io.on('connection',function(socket){
 
 					if((answersArray.indexOf(ansBlock2Array.toString()) != -1) || (answersArray.indexOf(ansBlock1Array.toString()) != -1)){
 						isGameOver = true;	
-						socket.to(groupName).emit('roundFinish',dataJson);
+						io.to(groupName).emit('roundFinish',dataJson);
 					}
 				}		
 			}
@@ -261,12 +261,10 @@ io.on('connection',function(socket){
 
 				if(finalMovesArray.length == 8){
 					finalMovesArray = [];
-					player2Moves = [];
-					player1Moves = [];
 					title = 'Round Finished';
 					alert = {'status':15,'isRoundFinish':true,'roundResult':2};
 					dataJson = {'title':title,'alert':alert};
-					socket.to(groupName).emit('roundFinish',dataJson);		
+					io.to(groupName).emit('roundFinish',dataJson);		
 				}else{
 					title = 'Turn System';
 					alert = {'status':13,'isMyTurn':false,'position':position,'mySign':mySign,'finalMovesArraySize':finalMovesArray.length};
