@@ -210,22 +210,21 @@ io.on('connection',function(socket){
 
 			if(player1Moves.length > 2){
 				for(var i=0;i<player1Moves.length - 2;i++){
-					for(var j=i;j<player1Moves.length - 2;j++){
-						var subArray = [];
-						subArray.push(player1Moves[i]);
-						var cnt = 1;
-						while(subArray.length <= 2){
-							subArray.push(player1Moves[j+cnt]);
-							cnt++;
+						for(var j=i+1;j<player1Moves.length - 1;j++){
+							for(var k=j+1;k<player1Moves.length;k++){
+								var subArray = [];
+								subArray.push(player1Moves[i]);							
+								subArray.push(player1Moves[j]);
+								subArray.push(player1Moves[k]);
+								if(answersArray.indexOf(subArray.toString()) != -1){
+									isGameOver = true;	
+									break;
+								}
+							}
+							if(isGameOver){ break; }
 						}
-						if(answersArray.indexOf(subArray.toString()) != -1){
-							isGameOver = true;
-							break;
-						}
+						if(isGameOver){ break; }
 					}
-					if(isGameOver)
-					{ break; }
-				}
 				if(isGameOver){
 					title = 'Round Finished';
 					alert = {'status':15,'isRoundFinish':true,'roundResult':mySign};
@@ -237,18 +236,18 @@ io.on('connection',function(socket){
 			if(!isGameOver){
 				if(player2Moves.length > 2){
 					for(var i=0;i<player2Moves.length - 2;i++){
-						for(var j=i;j<player2Moves.length - 2;j++){
-							var subArray = [];
-							subArray.push(player2Moves[i]);
-							var cnt = 1;
-							while(subArray.length <= 2){
-								subArray.push(player2Moves[j+cnt]);
-								cnt++;
+						for(var j=i+1;j<player2Moves.length - 1;j++){
+							for(var k=j+1;k<player2Moves.length;k++){
+								var subArray = [];
+								subArray.push(player2Moves[i]);							
+								subArray.push(player2Moves[j]);
+								subArray.push(player2Moves[k]);
+								if(answersArray.indexOf(subArray.toString()) != -1){
+									isGameOver = true;	
+									break;
+								}
 							}
-							if(answersArray.indexOf(subArray.toString()) != -1){
-								isGameOver = true;	
-								break;
-							}
+							if(isGameOver){ break; }
 						}
 						if(isGameOver){ break; }
 					}
